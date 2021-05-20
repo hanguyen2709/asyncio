@@ -10,6 +10,8 @@ import requests
 Q_CHAR = "q"
 FAIL_CODE = 599
 SUCESS_CODE = 200
+FINISH_CHAR =""
+
 
 def get_params_first(url):
     """
@@ -225,7 +227,7 @@ if __name__ == '__main__':
     second_url, final_output = loop.run_until_complete(parallel(arr_url))
     
 
-    if final_output == "":
+    if final_output == FINISH_CHAR:
     #  the value of final_output is None (not hit call to t), 
     # make another batch of requests.
     # append two seperate tuple url to a tuple of url
