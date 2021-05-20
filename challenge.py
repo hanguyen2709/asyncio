@@ -7,6 +7,10 @@ import sys
 import aiohttp
 import requests
 
+Q_CHAR = "q"
+FAIL_CODE = 599
+SUCESS_CODE = 200
+
 def get_params_first(url):
     """
     Execute first request to get response ,then extract data from it
@@ -27,7 +31,7 @@ def get_params_first(url):
 
     response = requests.get(url)
 
-    if response.status_code == 599: # check status code of response
+    if response.status_code == FAIL_CODE: # check status code of response
         raise Exception("Error status code 599 at first request, please run this file again .")
 
     my_bytes_value = response._content  # convert response to Json
@@ -206,7 +210,7 @@ if __name__ == '__main__':
     start_time = time.time()    # start time for calculation process time
     input_char = str(sys.argv[1])  # read the input q from terminal
 
-    if input_char != "q":  # raise error if input is not q character
+    if input_char != Q_CHAR:  # raise error if input is not q character
         raise ValueError('q param value is needed.')
 
     first_url = f"https://api.telnyx.com/hiring/func_{input_char}?x1"
@@ -238,7 +242,7 @@ if __name__ == '__main__':
     final_response = requests.get(final_url)    
     
     # if error on call to y, run it gain
-    if final_response.status_code != 200:   
+    if final_response.status_code != SUCESS_CODE:   
         raise Exception("Error status code 599, please run this file again .")
     my_bytes_value = final_response._content
     data = json.loads(my_bytes_value)
