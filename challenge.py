@@ -34,7 +34,7 @@ def get_params_first(url):
     response = requests.get(url)
 
     if response.status_code == FAIL_CODE: # check status code of response
-        raise Exception("Error status code 599 at first request, please run this file again .")
+        raise Exception("Error status code {FAIL_CODE} at first request, please run this file again .")
 
     my_bytes_value = response._content  # convert response to Json
     my_json = my_bytes_value.decode('utf8').replace("'", '"')
@@ -181,7 +181,7 @@ async def parallel(arr_url : tuple) ->tuple:
                 output = data["output"] # extract output from data.
             else:   #  output_in_data is False
                 print(186, "url error", arr_url[iter], data)
-                raise Exception("Error status code 599, please run this file again .")
+                raise Exception("Error status code {FAIL_CODE}, please run this file again .")
             targets_in_data = "targets" in data # check target exist in data or not.
 
             if  targets_in_data:     # if targets, extract the targets
@@ -245,7 +245,7 @@ if __name__ == '__main__':
     
     # if error on call to y, run it gain
     if final_response.status_code != SUCESS_CODE:   
-        raise Exception("Error status code 599, please run this file again .")
+        raise Exception("Error status code {FAIL_CODE}, please run this file again .")
     my_bytes_value = final_response._content
     data = json.loads(my_bytes_value)
     print("Output result of final call to y: ", data["output"])   # output result of program
